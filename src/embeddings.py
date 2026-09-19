@@ -4,6 +4,10 @@ import hashlib
 import math
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Multilingual model suitable for the Vietnamese corpora used in this Lab.
 # The local backend remains optional; required checkpoints use MockEmbedder.
 LOCAL_EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
