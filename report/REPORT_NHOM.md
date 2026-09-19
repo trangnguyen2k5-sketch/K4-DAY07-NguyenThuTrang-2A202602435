@@ -142,10 +142,89 @@ class MarkdownHeadingChunker:
 **Thành viên 2 — Nguyễn Thu Trang**
 - **Loại chiến lược:** RecursiveChunker
 - **Mô tả & lý do chọn:** Chiến lược này phân tách văn bản đệ quy dựa trên mức độ ưu tiên của các dấu phân cách (như xuống dòng kép, dấu chấm câu, khoảng trắng) nhằm giữ trọn vẹn các đoạn văn hoặc câu dưới một giới hạn kích thước nhất định.
+- **Code snippet:**
+```python
+class RecursiveChunker:
+    DEFAULT_SEPARATORS = ["\n\n", "\n", ". ", " ", ""]
+
+    def __init__(self, separators: list[str] | None = None, chunk_size: int = 500) -> None:
+        self.separators = self.DEFAULT_SEPARATORS if separators is None else list(separators)
+        self.chunk_size = chunk_size
+
+    def chunk(self, text: str) -> list[str]:
+        if not text:
+            return []
+        return self._split(text, self.separators)
+
+    def _split(self, current_text: str, remaining_separators: list[str]) -> list[str]:
+        if len(current_text) <= self.chunk_size:
+            return [current_text] if current_text else []
+
+        if not remaining_separators:
+            return [
+                current_text[i : i + self.chunk_size]
+                for i in range(0, len(current_text), self.chunk_size)
+            ] if current_text else []
+
+        separator = remaining_separators[0]
+        next_separators = remaining_separators[1:]
+
+        splits = current_text.split(separator)
+        good_splits = []
+        for part in splits:
+            if len(part) > self.chunk_size:
+                sub_chunks = self._split(part, next_separators)
+                good_splits.extend(sub_chunks)
+            else:
+                good_splits.append(part)
+
+        merged_chunks, current_chunk = [], ""
+        for part in good_splits:
+            if not part:
+                continue
+            if not current_chunk:
+                current_chunk = part
+            else:
+                candidate = current_chunk + separator + part
+                if len(candidate) <= self.chunk_size:
+                    current_chunk = candidate
+                else:
+                    merged_chunks.append(current_chunk)
+                    current_chunk = part
+
+        if current_chunk:
+            merged_chunks.append(current_chunk)
+
+        return merged_chunks if merged_chunks else [current_text]
+```
 
 **Thành viên 3 — Nguyễn Minh Dương**
 - **Loại chiến lược:** SentenceChunker
 - **Mô tả & lý do chọn:** Chiến lược này phân tách văn bản dựa trên ranh giới của các câu hoàn chỉnh (thường được nhận diện qua dấu chấm, dấu chấm hỏi hoặc dấu chấm cảm). Việc chọn SentenceChunker giúp đảm bảo mỗi đoạn văn bản (chunk) luôn giữ được trọn vẹn ý nghĩa của câu, không bị ngắt quãng giữa chừng.
+- **Code snippet:**
+```python
+class SentenceChunker:
+    def __init__(self, max_sentences_per_chunk: int = 3) -> None:
+        self.max_sentences_per_chunk = max(1, max_sentences_per_chunk)
+
+    def chunk(self, text: str) -> list[str]:
+        if not text or not text.strip():
+            return []
+
+        raw_sentences = re.split(r'(?<=[.!?])\s+|(?<=\.)\n', text)
+        sentences = [s.strip() for s in raw_sentences if s.strip()]
+
+        if not sentences:
+            return []
+
+        chunks: list[str] = []
+        for i in range(0, len(sentences), self.max_sentences_per_chunk):
+            group = sentences[i : i + self.max_sentences_per_chunk]
+            chunk_str = " ".join(group).strip()
+            if chunk_str:
+                chunks.append(chunk_str)
+        return chunks
+```
 
 # Đánh Giá Và So Sánh Chiến Lược Phân Tách Dữ Liệu (Chunking)
 
