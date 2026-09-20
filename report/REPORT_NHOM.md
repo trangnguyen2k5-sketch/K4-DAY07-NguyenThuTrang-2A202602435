@@ -1,6 +1,6 @@
 # Báo Cáo Nhóm — Lab 7: Embedding & Vector Store
 
-**Nhóm:** Nhóm 2A  
+**Nhóm:** Nhóm G30 
 **Thành viên:**  
 - Hoàng Trung Khải  
 - Nguyễn Minh Dương
