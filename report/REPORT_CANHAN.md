@@ -141,10 +141,10 @@ tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_returns_tr
 | Cặp | Câu A | Câu B | Dự đoán | Điểm thực tế | Đúng? |
 |------|-----------|-----------|---------|--------------|-------|
 | 1 | Sinh viên có GPA 3.6 trở lên được xét học bổng xuất sắc | Học viên đạt GPA >= 3.6 được nhận HB khuyến khích học tập | cao | 0.0337 | Đúng (về hướng ngữ nghĩa) |
-| 2 | Điều kiện xét học bổng tài năng ĐHKHTN theo Nghị định 179 | Thủ tục xin cấp thẻ sinh viên và đăng ký giữ chỗ ký túc xá | thấp | -0.0440 | Đúng |
+| 2 | Điều kiện xét học bổng tài năng ĐHKHTN theo Nghị định 179 | Thủ tục xin cấp thẻ sinh viên và đăng ký giữ chỗ ký túc xá | thấp | -0.0440 | Sai |
 | 3 | Quy định mượn trả sách tại thư viện ĐHQGHN | Danh mục giáo trình tham khảo cho môn học đại số tuyến tính | trung bình | 0.1450 | Đúng |
 | 4 | Mức hỗ trợ tài chính cho sinh viên theo học ngành khoa học cơ bản | Chính sách miễn giảm học phí đối với sinh viên diện chính sách | trung bình | 0.1749 | Đúng |
-| 5 | Thời gian nộp hồ sơ xét tuyển học bổng du học ngắn hạn | Hướng dẫn nấu món cơm rang thập cẩm thơm ngon tại nhà | thấp | -0.0033 | Đúng |
+| 5 | Thời gian nộp hồ sơ xét tuyển học bổng du học ngắn hạn | Hướng dẫn nấu món cơm rang thập cẩm thơm ngon tại nhà | thấp | -0.0033 | Sai |
 
 **Kết quả nào bất ngờ nhất? Điều này nói gì về cách embeddings biểu diễn ý nghĩa?**
 > Kết quả bất ngờ nhất là cặp 1 (hai câu cùng nội dung xét học bổng GPA 3.6) khi dùng MockEmbedder thu được điểm số chỉ 0.0337. Điều này giải thích rằng MockEmbedder tạo vector dựa trên băm từ vựng (deterministic hash) nên không nắm bắt được mối quan hệ từ đồng nghĩa (sinh viên/học viên). Khi chuyển sang mô hình nhúng ngữ nghĩa thật (như `sentence-transformers` hoặc `OpenAI/Gemini`), các câu có cùng ý nghĩa sẽ thu được điểm tương đồng cosine cao vượt trội (> 0.85).
