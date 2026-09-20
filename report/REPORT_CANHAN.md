@@ -2,7 +2,7 @@
 
 **Họ tên:** Nguyễn Thu Trang  
 **Mã sinh viên:** 2A202602435  
-**Nhóm:** Nhóm 2A  
+**Nhóm:** Nhóm G30
 **Ngày:** 2026-09-19  
 
 > **Nộp 1 bản / sinh viên.** Phần nhóm (lựa chọn tài liệu, thiết kế chiến lược, bộ câu hỏi đánh giá, demo) nộp chung 1 bản trong `REPORT_NHOM.md`. Chi tiết thang điểm: `docs/SCORING.md`.
