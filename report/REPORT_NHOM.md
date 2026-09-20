@@ -240,49 +240,53 @@ class SentenceChunker:
 
 > MarkdownHeading là chiến lược tốt nhất cho chủ đề "Quy chế học bổng" vì loại văn bản này có tính cấu trúc phân tầng cực kỳ chặt chẽ. Việc tự động đính kèm tiêu đề mục vào mọi đoạn văn con giúp giải quyết triệt để tình trạng "mất ngữ cảnh" trong RAG, đảm bảo hệ thống luôn biết chính xác một điều kiện xét tuyển hay mức hỗ trợ tài chính đang thuộc về loại học bổng cụ thể nào. Tuy nhiên trong data không phải lúc nào cũng có cấu trúc Markdown thật nhưng MarkdownHeading có fallback về Recursive để giải quyết tình huống này.
 
-
 ---
 
 ## 3. Câu hỏi đánh giá & Chất lượng truy xuất (Retrieval Quality) — Nhóm (10 điểm)
 
 ### Câu hỏi đánh giá & Câu trả lời chuẩn (nhóm thống nhất)
 
+> **Đúng 5 câu hỏi**, đa dạng, có thể kiểm chứng; **ít nhất 1 câu** cần lọc metadata mới trả lời tốt. Đây là bộ câu hỏi chung cho mọi thành viên chạy.
+
 | # | Câu hỏi (Query) | Câu trả lời chuẩn (Gold Answer) | Chunk nào chứa thông tin? |
 |---|-------|-------------------------------|--------------------------|
-| 1 | Mức hỗ trợ tài chính hàng tháng cao nhất dành cho sinh viên học tập tại các chương trình đào tạo tài năng theo Nghị định 179/2026/NĐ-CP tại Trường ĐHKHTN là bao nhiêu? | Hỗ trợ tài chính hàng tháng tối đa theo quy định của Nghị định 179 cho hệ tài năng ĐHKHTN. | `vnu-hus-nghi-dinh-179.md` |
-| 2 | Sinh viên đang theo học tại Trường Quốc tế (VNU-IS) cần đáp ứng tiêu chuẩn chung nào về kết quả học tập và rèn luyện để được đăng ký các chương trình học bổng ngắn hạn? | Kết quả học tập đạt từ loại Giỏi/Xuất sắc và điểm rèn luyện đạt từ loại Tốt trở lên. | `vnu-is-tong-quan-hoc-bong.md` |
-| 3 | Điều kiện về điểm thi THPT để thí sinh nhận Học bổng Chính phủ theo Nghị định 179/2026/NĐ-CP tại Trường ĐHKHTN là gì? | Tổng điểm thi THPT ở mức xuất sắc thuộc nhóm dẫn đầu trúng tuyển ngành học. | `vnu-hus-nghi-dinh-179.md` |
-| 4 | Trong Cẩm nang học bổng VNU-ULIS, Quỹ học bổng Thắp sáng niềm tin trao tặng bao nhiêu tiền cho mỗi suất học bổng dành cho sinh viên đại học? | Trao tặng 12.000.000 VNĐ cho mỗi suất học bổng sinh viên đại học. | `vnu-ulis-cam-nang-hoc-bong.md` |
-| 5 | Trường Quốc tế (VNU-IS) phân loại hệ thống học bổng dành cho sinh viên thành những nhóm nguồn chính nào? | Phân thành 3 nhóm nguồn chính: Học bổng ngân sách, Học bổng tuyển sinh VNU-IS và Học bổng đối tác/doanh nghiệp. | `vnu-is-tong-quan-hoc-bong.md` |
+| 1 | Mức hỗ trợ tài chính hàng tháng cao nhất dành cho sinh viên học tập tại các chương trình đào tạo tài năng theo Nghị định 179/2026/NĐ-CP tại Trường ĐHKHTN là bao nhiêu? | Mức hỗ trợ tài chính hàng tháng cao nhất là 5.500.000 đồng/tháng dành riêng cho sinh viên học tập tại các chương trình đào tạo tài năng (thuộc danh mục ưu tiên). | `vnu-hus-nghi-dinh-179.md` *(Yêu cầu `filter={"audience": "prospective-student"}`)* |
+| 2 | Sinh viên đang theo học tại Trường Quốc tế (VNU-IS) cần đáp ứng tiêu chuẩn chung nào về kết quả học tập và rèn luyện để được đăng ký các chương trình học bổng ngắn hạn? | Kết quả học tập đạt loại Giỏi trở lên (GPA $\ge 3.2$), điểm rèn luyện đạt loại Tốt trở lên ($\ge 80$ điểm), không bị kỷ luật từ mức khiển trách. | `vnu-is-hoc-bong-ngan-han.md` *(Yêu cầu `filter={"audience": "student"}`)* |
+| 3 | Điều kiện về điểm thi THPT để thí sinh nhận Học bổng Chính phủ theo Nghị định 179/2026/NĐ-CP tại Trường ĐHKHTN là gì? | Tổng điểm Toán và 2 môn tổ hợp đạt từ 22,50/30 trở lên (không tính điểm ưu tiên) và nằm trong top 30% điểm trúng tuyển cao nhất của nhóm ngành. | `vnu-hus-nghi-dinh-179.md` |
+| 4 | Trong Cẩm nang học bổng VNU-ULIS, Quỹ học bổng Thắp sáng niềm tin trao tặng bao nhiêu tiền cho mỗi suất học bổng dành cho sinh viên đại học? | Quỹ học bổng Thắp sáng niềm tin trao 12.000.000 VNĐ/học bổng cho mỗi sinh viên. | `vnu-ulis-cam-nang-hoc-bong.md` *(Yêu cầu `filter={"audience": "student"}`)* |
+| 5 | Trường Quốc tế (VNU-IS) phân loại hệ thống học bổng dành cho sinh viên thành những nhóm nguồn chính nào? | Gồm 3 nhóm chính: 1) Nguồn ngân sách nhà nước; 2) Tài trợ ngoài ngân sách (doanh nghiệp/tổ chức); 3) Hỗ trợ sinh viên có hoàn cảnh khó khăn. | `vnu-is-tong-quan-hoc-bong.md` *(Yêu cầu `filter={"category": "scholarship"}`)* |
 
 ### Tổng hợp chất lượng truy xuất của nhóm
 
+> Cách chấm (theo `docs/SCORING.md`): **2 điểm/câu** — top-3 chứa chunk liên quan + agent trả lời đúng (2), có liên quan nhưng thiếu/không ở top-1 (1), không có trong top-3 (0).
+
 | # | Câu hỏi | Chiến lược tốt nhất cho câu này | Có chunk liên quan trong top-3? | Ghi chú |
 |---|---------|-------------------------------|-------------------------------|---------|
-| 1 | Mức hỗ trợ tài chính hàng tháng cao nhất hệ tài năng... | MarkdownHeading | Có (Rank 1) | Điểm tương đồng top-1 đạt 0.2832 với filter prospective-student |
-| 2 | Tiêu chuẩn học tập và rèn luyện học bổng ngắn hạn VNU-IS... | MarkdownHeading / Recursive | Có (Rank 1) | Điểm tương đồng top-1 đạt 0.2657 với filter student |
-| 3 | Điều kiện điểm thi THPT nhận HB NĐ 179... | Recursive | Có (Rank 1) | Điểm tương đồng top-1 đạt 0.2536 |
-| 4 | Mức học bổng Thắp sáng niềm tin tại VNU-ULIS... | MarkdownHeading | Có (Rank 1) | Điểm tương đồng top-1 đạt 0.2584 với filter student |
-| 5 | Phân loại các nhóm nguồn học bổng VNU-IS... | MarkdownHeading | Có (Rank 1) | Điểm tương đồng top-1 đạt 0.3141 với filter category=scholarship |
+| 1 | Mức hỗ trợ tài chính hàng tháng cao nhất dành cho sinh viên học tập tại các chương trình đào tạo tài năng theo Nghị định 179/2026/NĐ-CP tại Trường ĐHKHTN là bao nhiêu? | MarkdownHeading + Filter | Có (Top 1) - Score: 2 | Bắt buộc dùng filter `audience="prospective-student"` để hệ thống không lấy nhầm các mức hỗ trợ của sinh viên đang học. |
+| 2 | Sinh viên đang theo học tại Trường Quốc tế (VNU-IS) cần đáp ứng tiêu chuẩn chung nào về kết quả học tập và rèn luyện để được đăng ký các chương trình học bổng ngắn hạn? | RecursiveChunker | Có (Top 1) - Score: 2 | Các điều kiện (GPA, rèn luyện, kỷ luật) viết thành 1 đoạn dài. Recursive giữ trọn vẹn đoạn này tốt hơn SentenceChunker. |
+| 3 | Điều kiện về điểm thi THPT để thí sinh nhận Học bổng Chính phủ theo Nghị định 179/2026/NĐ-CP tại Trường ĐHKHTN là gì? | MarkdownHeading | Có (Top 2/3) - Score: 1 | Chiến lược giúp đính kèm trọn vẹn tiêu đề 'Nghị định 179' vào chi tiết điều kiện điểm THPT. |
+| 4 | Trong Cẩm nang học bổng VNU-ULIS, Quỹ học bổng Thắp sáng niềm tin trao tặng bao nhiêu tiền cho mỗi suất học bổng dành cho sinh viên đại học? | SentenceChunker + Filter | Có (Top 1) - Score: 2 | Trích xuất được đúng câu có số '12.000.000 VNĐ', nhưng dễ bị ngắt khỏi ngữ cảnh nếu không cẩn thận. |
+| 5 | Trường Quốc tế (VNU-IS) phân loại hệ thống học bổng dành cho sinh viên thành những nhóm nguồn chính nào? | MarkdownHeading | Có (Top 1) - Score: 2 | Gom trọn vẹn được danh sách 3 nhóm liệt kê dưới thẻ tiêu đề `## Hệ thống học bổng`. |
 
 **Lọc bằng metadata có giúp ích không? Ở câu hỏi nào?**
-> Việc lọc metadata (`metadata_filter`) giúp ích rõ rệt ở Câu 1 (`audience: prospective-student`), Câu 2 & 4 (`audience: student`), và Câu 5 (`category: scholarship`). Lọc metadata giúp loại bỏ hoàn toàn các tài liệu không thuộc đối tượng quan tâm (ví dụ tránh lấy nhầm quy chế của sinh viên đang học cho thí sinh tuyển sinh), nâng cao độ chính xác truy xuất và tiết kiệm chi phí tính toán.
+> Có, lọc bằng metadata đặc biệt phát huy tác dụng ở **Câu 1** và **Câu 4**. Nhờ giới hạn từ khóa `audience="prospective-student"` (thí sinh tuyển sinh) hay `audience="student"` (sinh viên đang học), hệ thống RAG thu hẹp được phạm vi tìm kiếm, tránh việc Cosine Similarity lấy nhầm chính sách hỗ trợ tài chính của nhóm đối tượng khác, từ đó giúp Agent trả lời chính xác số tiền và điều kiện mà không bị "ảo giác" (hallucinate).
 
 ---
 
 ## 4. Thuyết trình (Demo) & Bài học nhóm — Nhóm (5 điểm)
 
 **Những phân tích (insights) hay nhất nhóm sẽ trình bày:**
-- Cấu trúc văn bản quyết định hiệu quả của chiến lược chunking: với văn bản quy chế có tiêu đề, `MarkdownHeadingChunker` vượt trội hơn hẳn so với cắt theo độ dài cố định hay theo câu.
-- Metadata pre-filtering đóng vai trò bộ lọc định hướng ngữ cảnh quan trọng trước khi truy xuất vector embedding.
+> Điểm Cosine Similarity đo lường sự tương đồng về "chủ đề" và "từ vựng" chứ không đo lường logic. Một câu khẳng định và một câu phủ định hoàn toàn có thể đạt điểm Cosine > 0.9. Do đó, Metadata Filtering là chốt chặn bắt buộc để hệ thống không bị "ảo giác" (hallucinate).
+
+> Thuật toán phân mảnh (Chunking) quyết định trực tiếp đến năng lực của Agent. Một Agent dùng mô hình LLM xịn đến mấy cũng sẽ trả lời sai nếu Chunking cắt đứt cụm từ chứa đáp án ra khỏi ngữ cảnh của nó.
+
+> Việc xử lý cấu trúc văn bản (như dùng MarkdownHeadingChunker) luôn mang lại hiệu quả cao hơn các thuật toán chia nhỏ mù quáng theo số lượng ký tự (FixedSize).
 
 **Bài học rút ra khi so sánh trong nhóm:**
-- Cùng một tập tài liệu nhưng sử dụng chiến lược chia nhỏ khác nhau dẫn đến khác biệt lớn về điểm tương đồng và độ đầy đủ ngữ cảnh của chunk trả về.
-- `SentenceChunker` thường làm rách rời văn bản quy chế, trong khi `RecursiveChunker` và `MarkdownHeadingChunker` duy trì mạch thông tin tốt hơn rất nhiều.
+> Qua việc so sánh chéo, nhóm nhận ra rằng cùng một bộ tài liệu và cùng một câu hỏi, chiến lược SentenceChunker thường làm đứt gãy ngữ cảnh (vì các câu điều kiện đứng độc lập trở nên vô nghĩa), trong khi MarkdownHeadingChunker xuất sắc trong việc gắn kết chi tiết với tiêu đề gốc.
 
 **Nếu làm lại, nhóm sẽ thay đổi gì trong chiến lược dữ liệu (data strategy)?**
-- Nhóm sẽ bổ sung thêm trường metadata `academic_year` để lọc chính xác học kỳ/năm học áp dụng.
-- Kết hợp tìm kiếm lai (Hybrid Search: BM25 + Vector Embedding) để vừa bắt chính xác từ khóa tên học bổng vừa hiểu ngữ nghĩa câu hỏi.
+> Thay vì chỉ gán metadata tĩnh, nhóm sẽ áp dụng phương pháp LLM-extracted Metadata (Dùng LLM đọc lướt tài liệu để tự động sinh ra các tag metadata như giá_trị_học_bổng, yêu_cầu_gpa...).
 
 ---
 
@@ -292,6 +296,6 @@ class SentenceChunker:
 |----------|-------------------|
 | Lựa chọn tài liệu (Document Set Quality) | 10 / 10 |
 | Thiết kế chiến lược (Strategy Design) | 15 / 15 |
-| Chất lượng truy xuất (Retrieval Quality) | 10 / 10 |
+| Chất lượng truy xuất (Retrieval Quality) | 9 / 10 |
 | Thuyết trình (Demo) | 5 / 5 |
-| **Tổng phần nhóm** | **40 / 40** |
+| **Tổng phần nhóm** | ** 39 / 40** |

@@ -163,7 +163,7 @@ Chạy **5 câu hỏi đánh giá của nhóm** trên bộ dữ liệu quy đị
 | 4 | Trong Cẩm nang học bổng VNU-ULIS, Quỹ học bổng Thắp sáng niềm tin trao tặng bao nhiêu tiền cho mỗi suất học bổng dành cho sinh viên đại học? | `vnu-ulis-cam-nang-hoc-bong_c12`: Quỹ Thắp sáng niềm tin trao 12tr VNĐ/suất cho sinh viên... | 0.2584 | Có | Quỹ học bổng Thắp sáng niềm tin trao 12.000.000 VNĐ cho mỗi suất học bổng sinh viên đại học. |
 | 5 | Trường Quốc tế (VNU-IS) phân loại hệ thống học bổng dành cho sinh viên thành những nhóm nguồn chính nào? | `vnu-is-tong-quan-hoc-bong_c1`: Phân loại nhóm học bổng ngân sách, học bổng VNU-IS và doanh nghiệp... | 0.3141 | Có | Hệ thống phân thành các nguồn chính: Học bổng ngân sách, Học bổng tuyển sinh VNU-IS và Học bổng đối tác/doanh nghiệp. |
 
-**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** 5 / 5
+**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** 4 / 5
 
 **Điều hay nhất tôi học được từ thành viên khác / nhóm khác (qua demo):**
 > Việc áp dụng chiến lược `MarkdownHeadingChunker` gắn kèm tiêu đề mục vào từng chunk giúp giải quyết triệt để tình trạng mất ngữ cảnh tiêu đề trong văn bản quy chế. Ngoài ra, việc kết hợp lọc metadata (`audience`, `category`) trước khi tìm kiếm vector giúp nâng cao độ chính xác và tránh nhầm lẫn giữa thông tin dành cho tân sinh viên và sinh viên đang theo học.
@@ -175,8 +175,8 @@ Chạy **5 câu hỏi đánh giá của nhóm** trên bộ dữ liệu quy đị
 | Tiêu chí | Điểm tự đánh giá |
 |----------|-------------------|
 | Khởi động (Warm-up) | 5 / 5 |
-| Hướng tiếp cận của tôi (My Approach) | 10 / 10 |
+| Hướng tiếp cận của tôi (My Approach) | 8 / 10 |
 | Hoàn thiện code (Core Implementation — tests) | 30 / 30 |
-| Dự đoán độ tương tự (Similarity Predictions) | 5 / 5 |
-| Kết quả truy xuất của tôi (Competition Results) | 10 / 10 |
-| **Tổng phần cá nhân** | **60 / 60** |
+| Dự đoán độ tương tự (Similarity Predictions) | 3 / 5 |
+| Kết quả truy xuất của tôi (Competition Results) | 8 / 10 |
+| **Tổng phần cá nhân** | **54 / 60** |
